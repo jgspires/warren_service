@@ -1,0 +1,72 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "standard",
+        "plugin:prettier/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error", {
+                "endOfLine": "auto"
+            }
+        ],
+        "camelcase": "off",
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "array-bracket-spacing": [
+            "error",
+            "never"
+        ],
+        "max-len": [
+            "warn", 
+            { 
+                "code": 100, 
+                "ignoreComments": true,
+                "ignoreTrailingComments": true,
+                "ignoreUrls": true,
+                "ignoreStrings": true
+            }
+        ],
+        "no-use-before-define": "off",
+        "no-empty-function": [
+            "error",
+            {
+                "allow": [
+                    "constructors"
+                ]
+            }
+        ],
+        "no-useless-constructor": "off",
+        "no-redeclare": "off",
+        "@typescript-eslint/no-shadow": [
+            "error",
+            {
+                "builtinGlobals": true,
+                "hoist": "functions",
+                "allow": []
+            }
+        ],
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "_"
+            }
+        ],
+        "@typescript-eslint/prefer-for-of": "warn"
+    }
+}
