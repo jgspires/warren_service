@@ -10,7 +10,7 @@ export class JWTTokenManager implements ITokenManager<UserFromRequestProps> {
     payload: UserFromRequestProps
   ): Either<ApplicationError, UserFromRequestProps> {
     const schema = Yup.object().shape({
-      userId: Yup.string().required()
+      _id: Yup.string().required()
     })
 
     try {

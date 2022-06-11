@@ -1,4 +1,5 @@
 import { BaseError, ApplicationError } from '../domain/errors'
+import { HttpResponse } from '../presentation/contracts'
 
 export class ErrorManager {
   static baseErrorStatus: Record<BaseError, number> = {
@@ -12,6 +13,32 @@ export class ErrorManager {
     ApplicationError: 400,
     ServerError: 500,
     ConnectionError: 500
+  }
+
+  static ErrorHttpResponse(error: ApplicationError): HttpResponse {
+    return { body: { ...error.body, name: error.name }, statusCode: error.status }
+  }
+
+  static ServerError(message: string = 'Unexpected error.'): ApplicationError {
+    const baseError: BaseError = 'ServerError'
+    return {
+      baseError,
+      external: true,
+      body: { message },
+      name: 'ServerError',
+      status: this.baseErrorStatus[baseError]
+    }
+  }
+
+  static ConnectionError(service: string): ApplicationError {
+    const baseError: BaseError = 'ConnectionError'
+    return {
+      baseError,
+      external: true,
+      body: { message: `Connection Error: connection to ${service} failed.` },
+      name: 'ConnectionError',
+      status: this.baseErrorStatus[baseError]
+    }
   }
 
   static MissingTokenError(): ApplicationError {

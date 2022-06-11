@@ -2,7 +2,7 @@ import { UserProps } from '../../src/domain/entities/User'
 
 export class UserBuilder {
   private user: UserProps = {
-    userId: 'validId',
+    _id: 'validId',
     password: 'ValidPwd!'
   }
 
@@ -11,7 +11,7 @@ export class UserBuilder {
   }
 
   public withBadUserId(): UserBuilder {
-    this.user.userId = 'invalid id'
+    this.user._id = 'invalid id'
     return this
   }
 

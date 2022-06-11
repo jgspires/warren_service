@@ -3,7 +3,7 @@ import { ApplicationError } from '../errors'
 import { UserId, UserPassword } from './components'
 
 export type UserProps = {
-  userId: string
+  _id: string
   password: string
 }
 
@@ -15,14 +15,12 @@ export class User {
   }
 
   static create(props: UserProps): Either<ApplicationError, User> {
-    const userIdOrError = UserId.create(props.userId)
+    const userIdOrError = UserId.create(props._id)
     if (userIdOrError.isLeft()) return left(userIdOrError.value)
 
     const userPwdOrError = UserPassword.create(props.password)
     if (userPwdOrError.isLeft()) return left(userPwdOrError.value)
 
-    return right(
-      new User({ userId: userIdOrError.value.value, password: userPwdOrError.value.value })
-    )
+    return right(new User({ _id: userIdOrError.value.value, password: userPwdOrError.value.value }))
   }
 }
