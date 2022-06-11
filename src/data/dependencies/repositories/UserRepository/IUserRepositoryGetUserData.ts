@@ -3,5 +3,5 @@ import { UserProps } from '../../../../domain/entities/User'
 import { ExternalResponse } from '../../../../shared'
 
 export interface IUserRepositoryGetUserData {
-  getUserData(user: UserFromRequestProps): ExternalResponse<UserProps>
+  getUserData(user: UserFromRequestProps): ExternalResponse<UserProps | null>
 }

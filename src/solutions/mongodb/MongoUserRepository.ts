@@ -26,7 +26,7 @@ export class MongoUserRepository extends Mongo implements IUserRepository {
     }
   }
 
-  async getUserData(user: UserFromRequestProps): ExternalResponse<UserProps> {
+  async getUserData(user: UserFromRequestProps): ExternalResponse<UserProps | null> {
     try {
       const [recoveredUser] = await this.load<UserSchema>(user._id, this.collectionName, {
         _id: user._id

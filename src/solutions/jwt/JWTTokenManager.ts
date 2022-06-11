@@ -4,6 +4,7 @@ import { UserFromRequestProps } from '../../domain/entities'
 import { Either, right, left, ErrorManager } from '../../shared'
 import { ITokenManager } from '../contracts'
 import { ApplicationError } from '../../domain/errors'
+import { TOKEN_SECRET } from '../../main/config'
 
 export class JWTTokenManager implements ITokenManager<UserFromRequestProps> {
   private validatePayload(
@@ -34,7 +35,7 @@ export class JWTTokenManager implements ITokenManager<UserFromRequestProps> {
   }
 
   async sign(info: UserFromRequestProps): Promise<string> {
-    const token = sign(info, 'this-is-a-secret-im-sure')
+    const token = sign(info, TOKEN_SECRET)
     return token
   }
 }

@@ -74,15 +74,50 @@ export class ErrorManager {
     }
   }
 
+  static PermissionError(
+    message: string = 'Insufficient permission to access resource.'
+  ): ApplicationError {
+    const baseError: BaseError = 'PermissionError'
+    return {
+      baseError,
+      external: false,
+      body: { message },
+      name: 'PermissionError',
+      status: this.baseErrorStatus[baseError]
+    }
+  }
+
   static InvalidError(entityType: string, entity: string, expected?: string): ApplicationError {
     const baseError: BaseError = 'InvalidError'
-    let message = `Invalid ${entityType} "${entity}".`
+    let message = `Invalid ${entityType}: "${entity}".`
     if (expected) message = message.concat(` ${expected}.`)
     return {
       baseError,
       external: false,
       body: { message },
-      name: 'InvalidTokenError',
+      name: `Invalid${entityType}Error`,
+      status: this.baseErrorStatus[baseError]
+    }
+  }
+
+  static DuplicateError(entityType: string, entity: string): ApplicationError {
+    const baseError: BaseError = 'DuplicateError'
+    return {
+      baseError,
+      external: false,
+      body: { message: `Duplicate ${entityType}: "${entity}".` },
+      name: `Duplicate${entityType}Error`,
+      status: this.baseErrorStatus[baseError]
+    }
+  }
+
+  static NotFoundError(entityType: string, entity: string): ApplicationError {
+    const baseError: BaseError = 'NotFoundError'
+    return {
+      baseError,
+      external: false,
+      body: { message: `${entityType}: "${entity}" not found.` },
+      name: `${entityType}NotFoundError`,
       status: this.baseErrorStatus[baseError]
     }
   }
