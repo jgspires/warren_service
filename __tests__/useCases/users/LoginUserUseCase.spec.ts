@@ -52,8 +52,6 @@ describe('Login user use case', () => {
       const responseOrError = await sut.execute(props)
       const response = responseOrError.value as string
 
-      console.log(response)
-
       expect(responseOrError.isRight()).toBeTruthy()
       expect(response).toBe('token.encoded.here')
     })
