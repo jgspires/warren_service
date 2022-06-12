@@ -1,9 +1,13 @@
-import { ApplicationError } from '../../src/domain/errors'
-import { IControllerOperation, HttpRequest, HttpResponse } from '../../src/presentation/contracts'
-import { Controller } from '../../src/presentation/http'
-import { success } from '../../src/presentation/http/helpers'
-import { Either, right, left, ErrorManager } from '../../src/shared'
-import { HttpRequestBuilder } from '../builders/HttpRequestBuilder'
+import { ApplicationError } from '../../../src/domain/errors'
+import {
+  IControllerOperation,
+  HttpRequest,
+  HttpResponse
+} from '../../../src/presentation/contracts'
+import { Controller } from '../../../src/presentation/http'
+import { success } from '../../../src/presentation/http/helpers'
+import { Either, right, left, ErrorManager } from '../../../src/shared'
+import { HttpRequestBuilder } from '../../builders/HttpRequestBuilder'
 
 interface ISutType {
   sut: Controller

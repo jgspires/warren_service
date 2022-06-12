@@ -1,10 +1,11 @@
 import { RequestHandler } from 'express'
 import jwt from 'jsonwebtoken'
-import { HttpRequest } from '../../presentation/contracts'
-import { logger } from '../../shared/logger'
+import { HttpRequest, IControllerOperation } from '../../presentation/contracts'
+import { Controller } from '../../presentation/http'
 import { TOKEN_SECRET } from '../config'
 
 export const adaptRoute = (
+  controllerOp: IControllerOperation<HttpRequest>,
   options: { requireAuth: boolean } = { requireAuth: true }
 ): RequestHandler => {
   return async (req, res) => {
@@ -26,7 +27,9 @@ export const adaptRoute = (
       })
     }
 
-    logger.info(`"${httpRequest.method} ${httpRequest.url}"`)
-    res.status(200).json({ body: httpRequest.body })
+    const controller = new Controller(controllerOp)
+
+    const httpResponse = await controller.handle(httpRequest)
+    res.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }

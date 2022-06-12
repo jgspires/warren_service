@@ -11,10 +11,10 @@ import {
 
 export default class Mongo {
   protected _connection: MongoClient
-  protected dbAdress: string
+  protected dbAddress: string
   protected logger: any
-  constructor(dbAdress: string, logger?: any) {
-    this.dbAdress = dbAdress
+  constructor(dbAddress: string, logger?: any) {
+    this.dbAddress = dbAddress
     if (logger) {
       this.logger = logger
     }
@@ -22,19 +22,19 @@ export default class Mongo {
 
   private async initialize() {
     try {
-      this._connection = await MongoClient.connect(`mongodb://${this.dbAdress}`, {
+      this._connection = await MongoClient.connect(`mongodb://${this.dbAddress}`, {
         useUnifiedTopology: true
       })
       if (this.logger) {
-        this.logger.info(`[mongo] ${this.dbAdress} connected`)
+        this.logger.info(`[mongo] ${this.dbAddress} connected`)
       } else {
-        console.log('[mongo] connected', this.dbAdress)
+        console.log('[mongo] connected', this.dbAddress)
       }
     } catch (error) {
       if (this.logger) {
-        this.logger.info(`[mongo] error ${this.dbAdress}\n${error}`)
+        this.logger.info(`[mongo] error ${this.dbAddress}\n${error}`)
       } else {
-        console.log('[mongo] error', this.dbAdress, error)
+        console.log('[mongo] error', this.dbAddress, error)
       }
     }
   }
