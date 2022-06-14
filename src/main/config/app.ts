@@ -2,7 +2,6 @@ import express from 'express'
 import crypto from 'crypto'
 import { getWarrenRoutes } from '../routes'
 
-export const SERVICE_NAME = 'warren_service'
 export const TOKEN_SECRET = process.env.TOKEN_SECRET || crypto.randomBytes(64).toString('hex')
 
 const app = express()
