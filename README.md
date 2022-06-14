@@ -12,7 +12,7 @@
 
 **Body:**
 
-User id to log in and its respective password:
+User id and password to log in:
 
 ``
 {
