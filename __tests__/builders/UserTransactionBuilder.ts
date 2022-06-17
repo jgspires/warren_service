@@ -2,6 +2,7 @@ import { UserTransactionProps } from '../../src/domain/entities'
 
 export class UserTransactionBuilder {
   private userTransaction: UserTransactionProps = {
+    _id: '005337198FE18A',
     name: 'User Transaction',
     amount: 600.5,
     date: '03/05/2022',
