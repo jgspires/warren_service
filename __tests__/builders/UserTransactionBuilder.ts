@@ -8,7 +8,8 @@ export class UserTransactionBuilder {
     date: '03/05/2022',
     sourceOrDestination: 'User Bank',
     paymentType: 'VISA Credit Card',
-    transactionType: 'deposit'
+    transactionType: 'deposit',
+    wallet: 'Wallet'
   }
 
   static aUserTransaction(): UserTransactionBuilder {

@@ -4,7 +4,8 @@ export class UserCategoryBuilder {
   private userCategory: UserCategoryProps = {
     name: 'User Category',
     colour: '#FFFFFF',
-    iconIndex: 0
+    iconIndex: 0,
+    transactions: []
   }
 
   static aUserCategory(): UserCategoryBuilder {

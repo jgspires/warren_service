@@ -1,9 +1,13 @@
 import { UserProps } from '../../src/domain/entities/User'
+import { UserCategoryBuilder } from './UserCategoryBuilder'
+import { UserWalletBuilder } from './UserWalletBuilder'
 
 export class UserBuilder {
   private user: UserProps = {
     _id: 'validId',
-    password: 'ValidPwd!'
+    password: 'ValidPwd!',
+    categories: [UserCategoryBuilder.aUserCategory().build()],
+    wallets: [UserWalletBuilder.aUserWallet().build()]
   }
 
   static aUser(): UserBuilder {
