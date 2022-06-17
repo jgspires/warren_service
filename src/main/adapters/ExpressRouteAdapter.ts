@@ -21,7 +21,8 @@ export const adaptRoute = (
 
     if (options.requireAuth) {
       if (!httpRequest.accessToken) authError = true
-      jwt.verify(httpRequest.accessToken as string, TOKEN_SECRET, (err: any, _user: any) => {
+      const token = httpRequest.accessToken!.replace('Bearer ', '')
+      jwt.verify(token as string, TOKEN_SECRET, (err: any, _user: any) => {
         if (err) authError = true
       })
       if (authError) return res.sendStatus(403)
