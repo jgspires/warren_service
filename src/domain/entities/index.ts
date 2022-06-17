@@ -1,1 +1,5 @@
 export * from './UserFromRequest'
+export * from './User'
+export * from './UserWallet'
+export * from './UserTransaction'
+export * from './UserCategory'

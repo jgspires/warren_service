@@ -16,7 +16,10 @@ export class ErrorManager {
   }
 
   static ErrorHttpResponse(error: ApplicationError): HttpResponse {
-    return { body: { ...error.body, name: error.name }, statusCode: error.status }
+    return {
+      body: { ...error.body, name: error.name, baseError: error.baseError },
+      statusCode: error.status
+    }
   }
 
   static ServerError(message: string = 'Unexpected error.'): ApplicationError {
@@ -90,34 +93,37 @@ export class ErrorManager {
   static InvalidError(entityType: string, entity: string, expected?: string): ApplicationError {
     const baseError: BaseError = 'InvalidError'
     let message = `Invalid ${entityType}: "${entity}".`
-    if (expected) message = message.concat(` ${expected}.`)
+    const entityName = entityType.charAt(0).toUpperCase() + entityType.slice(1)
+    if (expected) message = message.concat(` ${expected}`)
     return {
       baseError,
       external: false,
       body: { message },
-      name: `Invalid${entityType}Error`,
+      name: `Invalid${entityName}Error`,
       status: this.baseErrorStatus[baseError]
     }
   }
 
   static DuplicateError(entityType: string, entity: string): ApplicationError {
     const baseError: BaseError = 'DuplicateError'
+    const entityName = entityType.charAt(0).toUpperCase() + entityType.slice(1)
     return {
       baseError,
       external: false,
       body: { message: `Duplicate ${entityType}: "${entity}".` },
-      name: `Duplicate${entityType}Error`,
+      name: `Duplicate${entityName}Error`,
       status: this.baseErrorStatus[baseError]
     }
   }
 
   static NotFoundError(entityType: string, entity: string): ApplicationError {
     const baseError: BaseError = 'NotFoundError'
+    const entityName = entityType.charAt(0).toUpperCase() + entityType.slice(1)
     return {
       baseError,
       external: false,
       body: { message: `${entityType}: "${entity}" not found.` },
-      name: `${entityType}NotFoundError`,
+      name: `${entityName}NotFoundError`,
       status: this.baseErrorStatus[baseError]
     }
   }
