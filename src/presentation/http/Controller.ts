@@ -12,12 +12,12 @@ export class Controller<RequestType extends HttpRequest = HttpRequest>
     try {
       const operationResponse = await this.operation.operate(httpRequest)
       if (operationResponse.isRight()) {
-        logger.info(`${httpRequest.method} ${httpRequest.url}`)
+        if (logger) logger.info(`${httpRequest.method} ${httpRequest.url}`)
         return operationResponse.value
       }
 
       const error = operationResponse.value
-      logger.error(`${httpRequest.method} ${httpRequest.url}: ${error.name}`)
+      if (logger) logger.error(`${httpRequest.method} ${httpRequest.url}: ${error.name}`)
 
       return ErrorManager.ErrorHttpResponse(error)
     } catch (e) {
