@@ -65,7 +65,7 @@ describe('Controller', () => {
       const httpResponse = await sut.handle(HttpRequestBuilder.anHttpRequest().build())
 
       expect(httpResponse.statusCode).toBe(500)
-      expect(httpResponse.body.name).toBe(`ServerError`)
+      expect(httpResponse.body.baseError).toBe(`ServerError`)
     })
 
     it('Should return a connection error if the use case throws with custom reason', async () => {
@@ -77,6 +77,7 @@ describe('Controller', () => {
       })
 
       const httpResponse = await sut.handle(HttpRequestBuilder.anHttpRequest().build())
+      console.log(httpResponse.body)
 
       expect(httpResponse.statusCode).toBe(500)
       expect(httpResponse.body.message).toBe(`${errorReason}`)

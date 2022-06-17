@@ -1,3 +1,6 @@
 export * from './UserBuilder'
 export * from './HttpRequestBuilder'
 export * from './UserFromRequestBuilder'
+export * from './UserWalletBuilder'
+export * from './UserTransactionBuilder'
+export * from './UserCategoryBuilder'

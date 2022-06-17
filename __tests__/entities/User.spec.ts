@@ -1,4 +1,4 @@
-import { User } from '../../src/domain/entities/User'
+import { User } from '../../src/domain/entities/'
 import { UserBuilder } from '../builders'
 
 describe('User Entity', () => {
