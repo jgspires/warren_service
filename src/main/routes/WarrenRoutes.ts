@@ -1,13 +1,22 @@
 import { Router } from 'express'
 import { adaptRoute } from '../adapters'
-import { makeRegisterUser, makeLoginUser } from '../factories'
+import {
+  makeRegisterUser,
+  makeLoginUser,
+  makeChangeUserPassword,
+  makeDeleteUser
+} from '../factories'
 
 export const getWarrenRoutes = (): Router => {
   const router = Router()
 
+  // User routes
   router.get('/login', adaptRoute(makeLoginUser(), { requireAuth: false }))
   router.get('/register', adaptRoute(makeRegisterUser(), { requireAuth: false }))
-  // router.get('/users', adaptRoute())
+
+  router.put('/:_id', adaptRoute(makeChangeUserPassword()))
+  router.delete('/:_id', adaptRoute(makeDeleteUser()))
+  // --
 
   return router
 }

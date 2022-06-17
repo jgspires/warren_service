@@ -17,19 +17,19 @@ export const adaptRoute = (
       params: req.params,
       accessToken: req.headers.authorization
     }
+    let authError = false
 
     if (options.requireAuth) {
-      if (!httpRequest.accessToken) res.sendStatus(403)
-      jwt.verify(httpRequest.accessToken as string, TOKEN_SECRET, (err: any, user: any) => {
-        if (err) return res.sendStatus(403)
-
-        res.json({ user: user })
+      if (!httpRequest.accessToken) authError = true
+      jwt.verify(httpRequest.accessToken as string, TOKEN_SECRET, (err: any, _user: any) => {
+        if (err) authError = true
       })
+      if (authError) return res.sendStatus(403)
     }
 
     const controller = new Controller(controllerOp)
 
     const httpResponse = await controller.handle(httpRequest)
-    res.status(httpResponse.statusCode).json(httpResponse.body)
+    return res.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }
