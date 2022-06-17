@@ -1,5 +1,5 @@
 import {
-  IUserRepositoryChangePassword,
+  IUserRepositoryUpdateUser,
   IUserRepositoryGetUserData
 } from '../../../src/data/dependencies/repositories/UserRepository'
 import { ChangeUserPasswordUseCase } from '../../../src/data/useCases/users'
@@ -10,7 +10,7 @@ import { IChangeUserPassword } from '../../../src/domain/useCases/users'
 import { ErrorManager, ExternalResponse, left, right } from '../../../src/shared'
 import { UserBuilder } from '../../builders'
 
-type RepoUseCases = IUserRepositoryGetUserData & IUserRepositoryChangePassword
+type RepoUseCases = IUserRepositoryGetUserData & IUserRepositoryUpdateUser
 
 interface ISutType {
   sut: IChangeUserPassword
@@ -19,10 +19,7 @@ interface ISutType {
 
 const makeUserRepositoryStub = (): RepoUseCases => {
   class UserRepositoryStub implements RepoUseCases {
-    async changePassword(
-      _user: UserFromRequestProps,
-      _newPassword: string
-    ): ExternalResponse<null, ApplicationError> {
+    async updateUser(_user: UserProps): ExternalResponse<null, ApplicationError> {
       return right(null)
     }
 

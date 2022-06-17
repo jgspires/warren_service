@@ -54,7 +54,7 @@ describe('Mongo User Repository', () => {
       const user = UserBuilder.aUser().build()
       const newPassword = 'newPass!'
 
-      const nullOrError = await userRepository.changePassword({ _id: user._id }, newPassword)
+      const nullOrError = await userRepository.updateUser({ ...user, password: newPassword })
 
       const updatedUserOrError = await userRepository.getUserData({ _id: user._id })
 
