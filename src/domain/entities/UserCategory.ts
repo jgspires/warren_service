@@ -1,11 +1,13 @@
 import { Either, left, right } from '../../shared'
 import { ApplicationError } from '../errors'
 import { UserCategoryName } from './components'
+import { UserTransactionProps } from './UserTransaction'
 
 export type UserCategoryProps = {
   name: string
   iconIndex: number
   colour: string
+  transactions: UserTransactionProps[]
   description?: string
 }
 
@@ -22,5 +24,14 @@ export class UserCategory {
 
     props.name = categoryNameOrError.value.value
     return right(new UserCategory(props))
+  }
+
+  static getStartingCategory(): UserCategoryProps {
+    return {
+      name: 'Sem Categoria',
+      colour: '#FFFFFF',
+      iconIndex: 0,
+      transactions: []
+    }
   }
 }

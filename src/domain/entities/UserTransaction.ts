@@ -14,6 +14,7 @@ export type UserTransactionProps = {
   transactionType: TransactionType
   paymentType: string
   recurrence?: Recurrence
+  wallet: string
   description?: string
 }
 

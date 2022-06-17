@@ -23,7 +23,7 @@ export class ChangeUserPasswordUseCase implements IChangeUserPassword {
 
     if (validatedPassword === foundUser.password)
       return left(
-        ErrorManager.InvalidError('User', 'password', 'New and old passwords must differ')
+        ErrorManager.InvalidError('User', 'password', 'New and old passwords must differ.')
       )
 
     const updatePwdResponseOrError = await this.userRepository.changePassword(

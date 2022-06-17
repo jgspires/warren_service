@@ -1,4 +1,5 @@
-import { User } from '../../../domain/entities/User'
+import { UserCategory, UserWallet } from '../../../domain/entities'
+import { User, UserProps } from '../../../domain/entities/User'
 import { IRegisterUser } from '../../../domain/useCases/users'
 import { ErrorManager, left, right } from '../../../shared'
 import {
@@ -16,7 +17,13 @@ export class RegisterUserUseCase implements IRegisterUser {
     if (existingUserOrError.isLeft()) return left(existingUserOrError.value)
     if (existingUserOrError.value) return left(ErrorManager.DuplicateError('User', props._id))
 
-    const createdUserOrError = User.create(props)
+    const userProps: UserProps = {
+      ...props,
+      categories: [UserCategory.getStartingCategory()],
+      wallets: [UserWallet.getStartingWallet()]
+    }
+
+    const createdUserOrError = User.create(userProps)
     if (createdUserOrError.isLeft()) return left(createdUserOrError.value)
     const createdUserProps = createdUserOrError.value.value
 

@@ -1,6 +1,10 @@
+import { UserCategoryProps, UserWalletProps } from '../../../domain/entities'
+
 export class UserSchema {
   _id: string
   password: string
+  categories: UserCategoryProps[]
+  wallets: UserWalletProps[]
 
   // static mapToEntity(schema: MatchDaySchema): MatchDayProps {
   //   const entity: MatchDayProps = {

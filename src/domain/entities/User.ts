@@ -1,10 +1,14 @@
 import { Either, left, right } from '../../shared'
 import { ApplicationError } from '../errors'
 import { UserId, UserPassword } from './components'
+import { UserCategoryProps } from './UserCategory'
+import { UserWalletProps } from './UserWallet'
 
 export type UserProps = {
   _id: string
   password: string
+  categories: UserCategoryProps[]
+  wallets: UserWalletProps[]
 }
 
 export class User {
@@ -21,6 +25,8 @@ export class User {
     const userPwdOrError = UserPassword.create(props.password)
     if (userPwdOrError.isLeft()) return left(userPwdOrError.value)
 
-    return right(new User({ _id: userIdOrError.value.value, password: userPwdOrError.value.value }))
+    props._id = userIdOrError.value.value
+    props.password = userPwdOrError.value.value
+    return right(new User(props))
   }
 }

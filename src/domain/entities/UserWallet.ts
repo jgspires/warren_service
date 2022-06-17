@@ -26,4 +26,12 @@ export class UserWallet {
     }
     return right(new UserWallet(propsToCreate))
   }
+
+  static getStartingWallet(): UserWalletProps {
+    return {
+      name: 'Carteira',
+      colour: '#FFFFFF',
+      iconIndex: 0
+    }
+  }
 }
