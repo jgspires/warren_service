@@ -1,6 +1,6 @@
-import { UserFromRequestProps } from '../../../../domain/entities'
+import { UserProps } from '../../../../domain/entities'
 import { ExternalResponse } from '../../../../shared'
 
-export interface IUserRepositoryChangePassword {
-  changePassword(user: UserFromRequestProps, newPassword: string): ExternalResponse
+export interface IUserRepositoryUpdateUser {
+  updateUser(user: UserProps): ExternalResponse
 }

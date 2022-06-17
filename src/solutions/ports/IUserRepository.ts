@@ -1,5 +1,5 @@
 import {
-  IUserRepositoryChangePassword,
+  IUserRepositoryUpdateUser,
   IUserRepositoryDeleteUser,
   IUserRepositoryGetUserData,
   IUserRepositoryRegisterUser
@@ -7,6 +7,6 @@ import {
 
 export interface IUserRepository
   extends IUserRepositoryRegisterUser,
-    IUserRepositoryChangePassword,
+    IUserRepositoryUpdateUser,
     IUserRepositoryDeleteUser,
     IUserRepositoryGetUserData {}

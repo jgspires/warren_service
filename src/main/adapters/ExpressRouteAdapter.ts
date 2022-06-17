@@ -21,11 +21,13 @@ export const adaptRoute = (
 
     if (options.requireAuth) {
       if (!httpRequest.accessToken) authError = true
-      const token = httpRequest.accessToken!.replace('Bearer ', '')
-      jwt.verify(token as string, TOKEN_SECRET, (err: any, _user: any) => {
-        if (err) authError = true
-      })
-      if (authError) return res.sendStatus(403)
+      else {
+        const token = httpRequest.accessToken.replace('Bearer ', '')
+        jwt.verify(token as string, TOKEN_SECRET, (err: any, _user: any) => {
+          if (err) authError = true
+        })
+        if (authError) return res.sendStatus(403)
+      }
     }
 
     const controller = new Controller(controllerOp)

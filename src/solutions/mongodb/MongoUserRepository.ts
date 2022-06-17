@@ -38,13 +38,20 @@ export class MongoUserRepository extends Mongo implements IUserRepository {
     }
   }
 
-  async changePassword(user: UserFromRequestProps, newPassword: string): ExternalResponse {
+  async updateUser(user: UserProps): ExternalResponse {
     try {
       await this.update<UserSchema>(
         user._id,
         this.collectionName,
         { _id: user._id },
-        { $set: { _id: user._id, password: newPassword } }
+        {
+          $set: {
+            _id: user._id,
+            password: user.password,
+            categories: user.categories,
+            wallets: user.wallets
+          }
+        }
       )
 
       return right(null)

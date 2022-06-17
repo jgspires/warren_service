@@ -6,7 +6,6 @@ export type Recurrence = 'monthly'
 export type TransactionType = 'deposit' | 'withdraw'
 
 export type UserTransactionProps = {
-  _id: string
   name: string
   date: string
   amount: number

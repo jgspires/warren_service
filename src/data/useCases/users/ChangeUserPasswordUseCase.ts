@@ -2,13 +2,13 @@ import { UserPassword } from '../../../domain/entities/components'
 import { IChangeUserPassword } from '../../../domain/useCases/users'
 import { ErrorManager, left, right } from '../../../shared'
 import {
-  IUserRepositoryChangePassword,
+  IUserRepositoryUpdateUser,
   IUserRepositoryGetUserData
 } from '../../dependencies/repositories/UserRepository'
 
 export class ChangeUserPasswordUseCase implements IChangeUserPassword {
   constructor(
-    private readonly userRepository: IUserRepositoryGetUserData & IUserRepositoryChangePassword
+    private readonly userRepository: IUserRepositoryGetUserData & IUserRepositoryUpdateUser
   ) {}
 
   async execute(props: IChangeUserPassword.Props): Promise<IChangeUserPassword.Response> {
@@ -25,11 +25,11 @@ export class ChangeUserPasswordUseCase implements IChangeUserPassword {
       return left(
         ErrorManager.InvalidError('User', 'password', 'New and old passwords must differ.')
       )
-
-    const updatePwdResponseOrError = await this.userRepository.changePassword(
-      { _id: props._id },
-      validatedPassword
-    )
+    const updatedUser = {
+      ...foundUser,
+      password: props.newPassword
+    }
+    const updatePwdResponseOrError = await this.userRepository.updateUser(updatedUser)
     if (updatePwdResponseOrError.isLeft()) return left(updatePwdResponseOrError.value)
 
     return right({ _id: foundUser._id })

@@ -9,10 +9,7 @@ export class MongoUserRepository implements IUserRepository {
     return right(null)
   }
 
-  async changePassword(
-    _user: UserFromRequestProps,
-    _newPassword: string
-  ): ExternalResponse<null, ApplicationError> {
+  async updateUser(_user: UserProps): ExternalResponse<null, ApplicationError> {
     return right(null)
   }
 
