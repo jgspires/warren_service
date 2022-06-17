@@ -1,11 +1,12 @@
 import { UserCategoryProps } from '../../src/domain/entities'
+import { UserTransactionBuilder } from './UserTransactionBuilder'
 
 export class UserCategoryBuilder {
   private userCategory: UserCategoryProps = {
     name: 'User Category',
     colour: '#FFFFFF',
     iconIndex: 0,
-    transactions: []
+    transactions: [UserTransactionBuilder.aUserTransaction().build()]
   }
 
   static aUserCategory(): UserCategoryBuilder {

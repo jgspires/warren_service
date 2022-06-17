@@ -33,6 +33,10 @@ describe('Service Routes', () => {
       .expect(404)
   })
 
+  test('Recover User Route', async () => {
+    await request(app).get('/userId').set('Authorization', `${accessToken}`).send().expect(404)
+  })
+
   test('Change User Password Route', async () => {
     await request(app)
       .put('/userId')
