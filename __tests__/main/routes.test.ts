@@ -16,7 +16,6 @@ describe('Service Routes', () => {
   test('Register Route', async () => {
     await request(app)
       .get('/register')
-      .set('Authorization', `${accessToken}`)
       .send({
         _id: 'admin',
         password: 'Password!'
@@ -27,10 +26,29 @@ describe('Service Routes', () => {
   test('Login Route', async () => {
     await request(app)
       .get('/login')
-      .set('Authorization', `${accessToken}`)
       .send({
         _id: 'admin',
         password: 'Password!'
+      })
+      .expect(404)
+  })
+
+  test('Change User Password Route', async () => {
+    await request(app)
+      .put('/userId')
+      .set('Authorization', `${accessToken}`)
+      .send({
+        newPassword: 'newPassword!'
+      })
+      .expect(404)
+  })
+
+  test('Delete User Route', async () => {
+    await request(app)
+      .delete('/userId')
+      .set('Authorization', `${accessToken}`)
+      .send({
+        newPassword: 'newPassword!'
       })
       .expect(404)
   })

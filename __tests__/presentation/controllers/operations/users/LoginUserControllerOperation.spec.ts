@@ -10,7 +10,7 @@ interface ISutType {
   loginUserStub: ILoginUser
 }
 
-const makeLoginUserDayStub = (): ILoginUser => {
+const makeLoginUserStub = (): ILoginUser => {
   class LoginUserStub implements ILoginUser {
     async execute(_props: ILoginUser.Props): Promise<ILoginUser.Response> {
       return right('token.is.here')
@@ -21,7 +21,7 @@ const makeLoginUserDayStub = (): ILoginUser => {
 }
 
 const makeSut = (): ISutType => {
-  const loginUserStub = makeLoginUserDayStub()
+  const loginUserStub = makeLoginUserStub()
   const sut = new LoginUserControllerOperation(loginUserStub)
 
   return { sut, loginUserStub }

@@ -10,7 +10,7 @@ interface ISutType {
   registerUserStub: IRegisterUser
 }
 
-const makeRegisterUserDayStub = (): IRegisterUser => {
+const makeRegisterUserStub = (): IRegisterUser => {
   class RegisterUserStub implements IRegisterUser {
     async execute(_props: IRegisterUser.Props): Promise<IRegisterUser.Response> {
       const user = UserBuilder.aUser().build()
@@ -22,7 +22,7 @@ const makeRegisterUserDayStub = (): IRegisterUser => {
 }
 
 const makeSut = (): ISutType => {
-  const registerUserStub = makeRegisterUserDayStub()
+  const registerUserStub = makeRegisterUserStub()
   const sut = new RegisterUserControllerOperation(registerUserStub)
 
   return { sut, registerUserStub }
