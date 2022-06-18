@@ -15,6 +15,11 @@ export class UserTransactionBuilder {
     return new UserTransactionBuilder()
   }
 
+  public withName(name: string): UserTransactionBuilder {
+    this.userTransaction.name = name
+    return this
+  }
+
   public withBadName(): UserTransactionBuilder {
     this.userTransaction.name =
       'LOOONGLOOOONGMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN'

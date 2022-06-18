@@ -13,6 +13,11 @@ export class UserCategoryBuilder {
     return new UserCategoryBuilder()
   }
 
+  public withName(name: string): UserCategoryBuilder {
+    this.userCategory.name = name
+    return this
+  }
+
   public withBadName(): UserCategoryBuilder {
     this.userCategory.name =
       'LOOONGLOOOONGMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN'
