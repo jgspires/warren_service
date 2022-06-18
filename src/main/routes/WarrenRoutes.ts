@@ -7,7 +7,8 @@ import {
   makeDeleteUser,
   makeRecoverUser,
   makeUpdateUser,
-  makeGetUserPeriodBalance
+  makeGetUserPeriodBalance,
+  makeGetUserPeriodTransferAmount
 } from '../factories'
 
 export const getWarrenRoutes = (): Router => {
@@ -17,7 +18,8 @@ export const getWarrenRoutes = (): Router => {
   router.get('/login', adaptRoute(makeLoginUser(), { requireAuth: false }))
   router.get('/register', adaptRoute(makeRegisterUser(), { requireAuth: false }))
   router.get('/:_id', adaptRoute(makeRecoverUser()))
-  router.get('/:_id/balance', adaptRoute(makeGetUserPeriodBalance()))
+  router.get('/:_id/balances', adaptRoute(makeGetUserPeriodBalance()))
+  router.get('/:_id/transfers', adaptRoute(makeGetUserPeriodTransferAmount()))
 
   router.put('/:_id', adaptRoute(makeUpdateUser()))
   router.put('/:_id/password', adaptRoute(makeChangeUserPassword()))

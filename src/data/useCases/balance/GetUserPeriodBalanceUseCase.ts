@@ -1,9 +1,9 @@
-import { UserProps, UserTransactionProps } from '../../../domain/entities'
+import moment from 'moment'
 import { IGetPeriodBalance } from '../../../domain/useCases/balance'
 import { PeriodBalanceProps } from '../../../domain/useCases/balance/DTOs'
-import { left, ErrorManager, right } from '../../../shared'
+import { ErrorManager, left, right } from '../../../shared'
 import { IUserRepositoryGetUserData } from '../../dependencies/repositories/UserRepository'
-import moment from 'moment'
+import { TransactionHelper } from './utils'
 
 export class GetUserPeriodBalanceUseCase implements IGetPeriodBalance {
   constructor(private readonly userRepository: IUserRepositoryGetUserData) {}
@@ -26,7 +26,11 @@ export class GetUserPeriodBalanceUseCase implements IGetPeriodBalance {
         )
       )
 
-    const periodTransactions = this.getPeriodTransactions(foundUser, startTimestamp, endTimestamp)
+    const periodTransactions = TransactionHelper.getPeriodTransactions(
+      foundUser,
+      startTimestamp,
+      endTimestamp
+    )
     const periodBalances: PeriodBalanceProps[] = this.setupPeriod(
       props.startingMonth,
       props.endingMonth
@@ -40,29 +44,14 @@ export class GetUserPeriodBalanceUseCase implements IGetPeriodBalance {
         periodBalances.push({ balance: transaction.amount, date: transactionMonth })
       else {
         const existingPeriodIndex = periodBalances.indexOf(existingPeriod)
-        periodBalances[existingPeriodIndex].balance += transaction.amount
+        if (transaction.transactionType === 'deposit')
+          periodBalances[existingPeriodIndex].balance += transaction.amount
+        else if (transaction.transactionType === 'withdraw')
+          periodBalances[existingPeriodIndex].balance -= transaction.amount
       }
     }
 
     return right(periodBalances)
-  }
-
-  getPeriodTransactions(
-    user: UserProps,
-    startTimestamp: number,
-    endTimestamp: number
-  ): UserTransactionProps[] {
-    let periodTransactions: UserTransactionProps[] = []
-    for (const category of user.categories) {
-      const validCategoryTransactions = category.transactions.filter(tran => {
-        const transactionTimestamp = moment(tran.date).unix()
-        if (transactionTimestamp >= startTimestamp && transactionTimestamp <= endTimestamp)
-          return true
-        else return false
-      })
-      periodTransactions = periodTransactions.concat(validCategoryTransactions)
-    }
-    return periodTransactions
   }
 
   setupPeriod(startingMonth: string, endingMonth: string): PeriodBalanceProps[] {
