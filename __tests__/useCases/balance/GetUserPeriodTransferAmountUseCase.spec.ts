@@ -1,16 +1,16 @@
 import { IUserRepositoryGetUserData } from '../../../src/data/dependencies/repositories/UserRepository'
-import { GetUserPeriodBalanceUseCase } from '../../../src/data/useCases/balance'
+import { GetUserPeriodTransferAmountUseCase } from '../../../src/data/useCases/balance/GetUserPeriodTransferAmountUseCase'
 import { UserFromRequestProps, UserProps } from '../../../src/domain/entities'
 import { ApplicationError } from '../../../src/domain/errors'
-import { IGetPeriodBalance } from '../../../src/domain/useCases/balance'
-import { PeriodBalanceProps } from '../../../src/domain/useCases/balance/DTOs'
-import { ExternalResponse, right, left, ErrorManager } from '../../../src/shared'
+import { IGetPeriodTransferAmount } from '../../../src/domain/useCases/balance'
+import { PeriodTransferAmountProps } from '../../../src/domain/useCases/balance/DTOs'
+import { ErrorManager, ExternalResponse, left, right } from '../../../src/shared'
 import { UserBuilder, UserCategoryBuilder, UserTransactionBuilder } from '../../builders'
 
 type RepoUseCases = IUserRepositoryGetUserData
 
 interface ISutType {
-  sut: IGetPeriodBalance
+  sut: IGetPeriodTransferAmount
   userRepositoryStub: RepoUseCases
 }
 
@@ -35,17 +35,21 @@ const makeUserRepositoryStub = (): RepoUseCases => {
         UserTransactionBuilder.aUserTransaction().withAmount(33).withDate('2021-12-01').build()
       )
       user.categories[1].transactions.push(
-        UserTransactionBuilder.aUserTransaction().withAmount(10.3).withDate('2022-02-15').build()
-      )
-      user.categories[1].transactions.push(
-        UserTransactionBuilder.aUserTransaction().withAmount(5).withDate('2022-06-15').build()
-      )
-      user.categories[0].transactions.push(
         UserTransactionBuilder.aUserTransaction()
-          .withAmount(10)
-          .withDate('2022-12-31')
+          .withAmount(10.3)
+          .withDate('2022-02-15')
           .withType('withdraw')
           .build()
+      )
+      user.categories[1].transactions.push(
+        UserTransactionBuilder.aUserTransaction()
+          .withAmount(5)
+          .withDate('2022-06-15')
+          .withType('withdraw')
+          .build()
+      )
+      user.categories[0].transactions.push(
+        UserTransactionBuilder.aUserTransaction().withAmount(10).withDate('2022-12-31').build()
       )
       user.categories[1].transactions.push(
         UserTransactionBuilder.aUserTransaction()
@@ -63,14 +67,14 @@ const makeUserRepositoryStub = (): RepoUseCases => {
 
 const makeSut = (): ISutType => {
   const userRepositoryStub = makeUserRepositoryStub()
-  const sut = new GetUserPeriodBalanceUseCase(userRepositoryStub)
+  const sut = new GetUserPeriodTransferAmountUseCase(userRepositoryStub)
 
   return { sut, userRepositoryStub }
 }
 
-describe('Get User Period Balance use case', () => {
+describe('Get User Period Transfer Amount use case', () => {
   describe('Success Cases', () => {
-    it('Should get period balance', async () => {
+    it('Should get period transfers', async () => {
       const { sut } = makeSut()
       const user = UserBuilder.aUser().build()
 
@@ -79,29 +83,14 @@ describe('Get User Period Balance use case', () => {
         startingMonth: '2021-12',
         endingMonth: '2022-12'
       })
-      const response = responseOrError.value as PeriodBalanceProps[]
+      const response = responseOrError.value as PeriodTransferAmountProps
 
       expect(responseOrError.isRight()).toBeTruthy()
-      expect(response.length).toBe(13)
-      expect(response).toEqual([
-        { date: '2021-12', balance: 33 },
-        { date: '2022-01', balance: 0 },
-        { date: '2022-02', balance: 10.3 },
-        { date: '2022-03', balance: 0 },
-        { date: '2022-04', balance: 150.5 },
-        { date: '2022-05', balance: 1201 },
-        { date: '2022-06', balance: 100.25 },
-        { date: '2022-07', balance: 0 },
-        { date: '2022-08', balance: 0 },
-        { date: '2022-09', balance: 0 },
-        { date: '2022-10', balance: 0 },
-        { date: '2022-11', balance: 0 },
-        { date: '2022-12', balance: -20 }
-      ])
+      expect(response).toEqual({ deposits: 1489.75, withdraws: 25.3 })
     })
   })
   describe('Error Cases', () => {
-    it('Should fail to get period balance if user does not exist', async () => {
+    it('Should fail to get transfers if user does not exist', async () => {
       const { sut, userRepositoryStub } = makeSut()
       const user = UserBuilder.aUser().build()
 

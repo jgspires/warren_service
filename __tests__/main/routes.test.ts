@@ -40,9 +40,23 @@ describe('Service Routes', () => {
 
   test('Get User Period Balance Route', async () => {
     await request(app)
-      .get('/userId/balance')
+      .get('/userId/balances')
       .set('Authorization', `${accessToken}`)
-      .send()
+      .send({
+        startingMonth: '2021-12',
+        endingMonth: '2022-02'
+      })
+      .expect(404)
+  })
+
+  test('Get User Period Balance Route', async () => {
+    await request(app)
+      .get('/userId/transfers')
+      .set('Authorization', `${accessToken}`)
+      .send({
+        startingMonth: '2021-12',
+        endingMonth: '2022-02'
+      })
       .expect(404)
   })
 

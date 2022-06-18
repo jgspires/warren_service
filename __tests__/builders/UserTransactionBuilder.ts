@@ -1,4 +1,4 @@
-import { UserTransactionProps } from '../../src/domain/entities'
+import { TransactionType, UserTransactionProps } from '../../src/domain/entities'
 
 export class UserTransactionBuilder {
   private userTransaction: UserTransactionProps = {
@@ -27,6 +27,11 @@ export class UserTransactionBuilder {
 
   public withDate(date: string): UserTransactionBuilder {
     this.userTransaction.date = date
+    return this
+  }
+
+  public withType(transactionType: TransactionType): UserTransactionBuilder {
+    this.userTransaction.transactionType = transactionType
     return this
   }
 
