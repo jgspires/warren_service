@@ -1,6 +1,7 @@
 import request from 'supertest'
 import { app } from '../../src/main/config/app'
 import { tokenManager } from '../../src/main/factories/external/Utils'
+import { UserBuilder } from '../builders'
 
 jest.mock('../../src/solutions/mongodb/MongoUserRepository')
 
@@ -37,9 +38,22 @@ describe('Service Routes', () => {
     await request(app).get('/userId').set('Authorization', `${accessToken}`).send().expect(404)
   })
 
-  test('Change User Password Route', async () => {
+  test('Update User Route', async () => {
+    const user = UserBuilder.aUser().build()
+    const userDataToSend = {
+      wallets: user.wallets,
+      categories: user.categories
+    }
     await request(app)
       .put('/userId')
+      .set('Authorization', `${accessToken}`)
+      .send(userDataToSend)
+      .expect(404)
+  })
+
+  test('Change User Password Route', async () => {
+    await request(app)
+      .put('/userId/password')
       .set('Authorization', `${accessToken}`)
       .send({
         newPassword: 'newPassword!'
