@@ -2,7 +2,6 @@ import { Either, left, right } from '../../shared'
 import { ApplicationError } from '../errors'
 import { UserTransactionName } from './components/'
 
-export type RecurrencePeriod = 'monthly'
 export type TransactionType = 'deposit' | 'withdraw'
 
 export type UserTransactionProps = {
@@ -12,11 +11,7 @@ export type UserTransactionProps = {
   sourceOrDestination: string
   transactionType: TransactionType
   paymentType: string
-  recurrence?: {
-    period: RecurrencePeriod
-    installments: number
-  }
-  wallet: string
+  walletId: number
   description?: string
 }
 
