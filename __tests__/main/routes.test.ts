@@ -38,6 +38,14 @@ describe('Service Routes', () => {
     await request(app).get('/userId').set('Authorization', `${accessToken}`).send().expect(404)
   })
 
+  test('Get User Period Balance Route', async () => {
+    await request(app)
+      .get('/userId/balance')
+      .set('Authorization', `${accessToken}`)
+      .send()
+      .expect(404)
+  })
+
   test('Update User Route', async () => {
     const user = UserBuilder.aUser().build()
     const userDataToSend = {

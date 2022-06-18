@@ -1,5 +1,5 @@
 import { IUserRepositoryGetUserData } from '../../../src/data/dependencies/repositories/UserRepository'
-import { GetPeriodBalanceUseCase } from '../../../src/data/useCases/balance'
+import { GetUserPeriodBalanceUseCase } from '../../../src/data/useCases/balance'
 import { UserFromRequestProps, UserProps } from '../../../src/domain/entities'
 import { ApplicationError } from '../../../src/domain/errors'
 import { IGetPeriodBalance } from '../../../src/domain/useCases/balance'
@@ -55,12 +55,12 @@ const makeUserRepositoryStub = (): RepoUseCases => {
 
 const makeSut = (): ISutType => {
   const userRepositoryStub = makeUserRepositoryStub()
-  const sut = new GetPeriodBalanceUseCase(userRepositoryStub)
+  const sut = new GetUserPeriodBalanceUseCase(userRepositoryStub)
 
   return { sut, userRepositoryStub }
 }
 
-describe('Get Period Balance use case', () => {
+describe('Get User Period Balance use case', () => {
   describe('Success Cases', () => {
     it('Should get period balance', async () => {
       const { sut } = makeSut()
