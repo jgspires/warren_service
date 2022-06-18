@@ -5,7 +5,7 @@ import { left, ErrorManager, right } from '../../../shared'
 import { IUserRepositoryGetUserData } from '../../dependencies/repositories/UserRepository'
 import moment from 'moment'
 
-export class GetPeriodBalanceUseCase implements IGetPeriodBalance {
+export class GetUserPeriodBalanceUseCase implements IGetPeriodBalance {
   constructor(private readonly userRepository: IUserRepositoryGetUserData) {}
 
   async execute(props: IGetPeriodBalance.Props): Promise<IGetPeriodBalance.Response> {

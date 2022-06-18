@@ -1,1 +1,1 @@
-export * from './GetPeriodBalanceUseCase'
+export * from './GetUserPeriodBalanceUseCase'
