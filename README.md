@@ -280,8 +280,10 @@ _id: string
 Starting month and ending month of period from which to get the balances. Month string format is 'YYYY-MM'.
 
 ```
+{
   startingMonth: string
   endingMonth: string
+}
 ```
 
 **Success return:**
@@ -290,8 +292,10 @@ An array of all balances with their respective months, ordered from oldest to ne
 
 Each index of the array has the following format:
 ```
+{
   date: string
   balance: number
+}
 ```
 
 ---
@@ -319,8 +323,10 @@ _id: string
 Starting month and ending month of period from which to get the transfer amounts. Month string format is 'YYYY-MM'.
 
 ```
+{
   startingMonth: string
   endingMonth: string
+}
 ```
 
 **Success return:**
@@ -328,6 +334,8 @@ Starting month and ending month of period from which to get the transfer amounts
 The total amount of money that was deposited and withdrawn from the user's account within the provided interval.
 
 ```
+{
   deposits: number
   withdraws: number
+}
 ```
