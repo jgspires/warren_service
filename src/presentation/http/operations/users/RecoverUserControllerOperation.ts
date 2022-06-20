@@ -11,7 +11,7 @@ export class RecoverUserControllerOperation implements IControllerOperation<Http
   async operate(
     request: HttpRequest<any, any, UserFromRequestProps>
   ): ControllerOperationResponse<UserNoPasswordViewModel> {
-    const user = request.body
+    const user = request.params
     const userOrError = await this.recoverUser.execute(user)
 
     if (userOrError.isRight()) return right(success(userOrError.value))

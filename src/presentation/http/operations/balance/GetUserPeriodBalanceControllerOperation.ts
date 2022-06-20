@@ -2,24 +2,19 @@ import { IGetPeriodBalance } from '../../../../domain/useCases/balance'
 import { left, right } from '../../../../shared'
 import { ControllerOperationResponse, HttpRequest, IControllerOperation } from '../../../contracts'
 import { success } from '../../helpers'
-import {
-  PeriodBalanceViewModel,
-  PeriodDatesViewModel,
-  UserFromRequestViewModel
-} from '../../viewModels'
+import { PeriodBalanceViewModel, PeriodDatesViewModel } from '../../viewModels'
 
 export class GetUserPeriodBalanceControllerOperation implements IControllerOperation<HttpRequest> {
   constructor(private readonly getPeriodBalance: IGetPeriodBalance) {}
 
   async operate(
-    request: HttpRequest<PeriodDatesViewModel, any, UserFromRequestViewModel>
+    request: HttpRequest<any, any, PeriodDatesViewModel>
   ): ControllerOperationResponse<PeriodBalanceViewModel[]> {
-    const userId = request.params._id
-    const periodDates = request.body
+    const params = request.params
     const responseOrError = await this.getPeriodBalance.execute({
-      _id: userId,
-      startingMonth: periodDates.startingMonth,
-      endingMonth: periodDates.endingMonth
+      _id: params._id,
+      startingMonth: params.startingMonth,
+      endingMonth: params.endingMonth
     })
 
     if (responseOrError.isRight()) return right(success(responseOrError.value))

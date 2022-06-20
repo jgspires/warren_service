@@ -34,14 +34,9 @@ describe('Get User Period Transfer Amount Controller Operation', () => {
     it('Should get user period transfer amounts and return 200', async () => {
       const { sut } = makeSut()
       const user = UserBuilder.aUser().build()
-      const body = {
-        startingMonth: '2022-01',
-        endingMonth: '2022-06'
-      }
 
       const httpRequest = HttpRequestBuilder.anHttpRequest()
-        .withParams({ _id: user._id })
-        .withBody(body)
+        .withParams({ _id: user._id, startingMonth: '2022-01', endingMonth: '2022-06' })
         .build()
 
       const httpResponseOrError = await sut.operate(httpRequest)
@@ -56,15 +51,10 @@ describe('Get User Period Transfer Amount Controller Operation', () => {
     it('Should fail if use case returns error', async () => {
       const { sut, getUserPeriodTransferAmountStub } = makeSut()
       const user = UserBuilder.aUser().build()
-      const body = {
-        startingMonth: '2022-01',
-        endingMonth: '2022-06'
-      }
       const returnedError = ErrorManager.ServerError()
 
       const httpRequest = HttpRequestBuilder.anHttpRequest()
-        .withParams({ _id: user._id })
-        .withBody(body)
+        .withParams({ _id: user._id, startingMonth: '2022-01', endingMonth: '2022-06' })
         .build()
 
       jest.spyOn(getUserPeriodTransferAmountStub, 'execute').mockImplementation(async () => {

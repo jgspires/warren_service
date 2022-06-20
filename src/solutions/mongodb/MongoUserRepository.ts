@@ -62,7 +62,7 @@ export class MongoUserRepository extends Mongo implements IUserRepository {
 
   async deleteUser(user: UserFromRequestProps): ExternalResponse<null, ApplicationError> {
     try {
-      await this.dropDb(user._id)
+      await this.dropCollection(user._id, this.collectionName)
 
       return right(null)
     } catch (e) {

@@ -24,8 +24,11 @@ export const getWarrenRoutes = (): Router => {
 
   router.delete('/:_id', adaptRoute(makeDeleteUser()))
   // User Balance Routes
-  router.get('/:_id/balances', adaptRoute(makeGetUserPeriodBalance()))
-  router.get('/:_id/transfers', adaptRoute(makeGetUserPeriodTransferAmount()))
+  router.get('/:_id/balances/:startingMonth/:endingMonth', adaptRoute(makeGetUserPeriodBalance()))
+  router.get(
+    '/:_id/transfers/:startingMonth/:endingMonth',
+    adaptRoute(makeGetUserPeriodTransferAmount())
+  )
 
   return router
 }

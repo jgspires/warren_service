@@ -16,7 +16,7 @@ describe('Service Routes', () => {
 
   test('Register Route', async () => {
     await request(app)
-      .get('/register')
+      .post('/register')
       .send({
         _id: 'admin',
         password: 'Password!'
@@ -26,7 +26,7 @@ describe('Service Routes', () => {
 
   test('Login Route', async () => {
     await request(app)
-      .get('/login')
+      .post('/login')
       .send({
         _id: 'admin',
         password: 'Password!'
@@ -40,23 +40,17 @@ describe('Service Routes', () => {
 
   test('Get User Period Balance Route', async () => {
     await request(app)
-      .get('/userId/balances')
+      .get('/userId/balances/2021-12/2022-02')
       .set('Authorization', `${accessToken}`)
-      .send({
-        startingMonth: '2021-12',
-        endingMonth: '2022-02'
-      })
+      .send()
       .expect(404)
   })
 
   test('Get User Period Balance Route', async () => {
     await request(app)
-      .get('/userId/transfers')
+      .get('/userId/transfers/2021-12/2022-02')
       .set('Authorization', `${accessToken}`)
-      .send({
-        startingMonth: '2021-12',
-        endingMonth: '2022-02'
-      })
+      .send()
       .expect(404)
   })
 

@@ -3,7 +3,7 @@ import { PeriodTransferAmountProps } from '../../../../domain/useCases/balance/D
 import { left, right } from '../../../../shared'
 import { ControllerOperationResponse, HttpRequest, IControllerOperation } from '../../../contracts'
 import { success } from '../../helpers'
-import { PeriodDatesViewModel, UserFromRequestViewModel } from '../../viewModels'
+import { PeriodDatesViewModel } from '../../viewModels'
 
 export class GetUserPeriodTransferAmountControllerOperation
   implements IControllerOperation<HttpRequest>
@@ -11,14 +11,13 @@ export class GetUserPeriodTransferAmountControllerOperation
   constructor(private readonly getPeriodTransferAmount: IGetPeriodTransferAmount) {}
 
   async operate(
-    request: HttpRequest<PeriodDatesViewModel, any, UserFromRequestViewModel>
+    request: HttpRequest<any, any, PeriodDatesViewModel>
   ): ControllerOperationResponse<PeriodTransferAmountProps> {
-    const userId = request.params._id
-    const periodDates = request.body
+    const params = request.params
     const responseOrError = await this.getPeriodTransferAmount.execute({
-      _id: userId,
-      startingMonth: periodDates.startingMonth,
-      endingMonth: periodDates.endingMonth
+      _id: params._id,
+      startingMonth: params.startingMonth,
+      endingMonth: params.endingMonth
     })
 
     if (responseOrError.isRight()) return right(success(responseOrError.value))
