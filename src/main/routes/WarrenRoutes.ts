@@ -15,7 +15,7 @@ export const getWarrenRoutes = (): Router => {
   const router = Router()
 
   // User routes
-  router.get('/login', adaptRoute(makeLoginUser(), { requireAuth: false }))
+  router.post('/login', adaptRoute(makeLoginUser(), { requireAuth: false }))
   router.post('/register', adaptRoute(makeRegisterUser(), { requireAuth: false }))
   router.get('/:_id', adaptRoute(makeRecoverUser()))
 
