@@ -16,15 +16,16 @@ export const getWarrenRoutes = (): Router => {
 
   // User routes
   router.get('/login', adaptRoute(makeLoginUser(), { requireAuth: false }))
-  router.get('/register', adaptRoute(makeRegisterUser(), { requireAuth: false }))
+  router.post('/register', adaptRoute(makeRegisterUser(), { requireAuth: false }))
   router.get('/:_id', adaptRoute(makeRecoverUser()))
-  router.get('/:_id/balances', adaptRoute(makeGetUserPeriodBalance()))
-  router.get('/:_id/transfers', adaptRoute(makeGetUserPeriodTransferAmount()))
 
   router.put('/:_id', adaptRoute(makeUpdateUser()))
   router.put('/:_id/password', adaptRoute(makeChangeUserPassword()))
+
   router.delete('/:_id', adaptRoute(makeDeleteUser()))
-  // --
+  // User Balance Routes
+  router.get('/:_id/balances', adaptRoute(makeGetUserPeriodBalance()))
+  router.get('/:_id/transfers', adaptRoute(makeGetUserPeriodTransferAmount()))
 
   return router
 }
