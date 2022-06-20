@@ -29,7 +29,7 @@ export class UserCategory {
   static getStartingCategory(): UserCategoryProps {
     return {
       name: 'Sem Categoria',
-      colour: '#FFFFFF',
+      colour: '#e4e4e4',
       iconIndex: 0,
       transactions: []
     }

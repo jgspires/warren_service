@@ -30,7 +30,7 @@ export class UserWallet {
   static getStartingWallet(): UserWalletProps {
     return {
       name: 'Carteira',
-      colour: '#FFFFFF',
+      colour: '#e4e4e4',
       iconIndex: 0
     }
   }
