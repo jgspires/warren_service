@@ -261,7 +261,7 @@ Resulting user data after update (no password):
 
 > Recovers a registered user's balances within a specified interval.
 
-**Endpoint:** `GET warren_service/:_id/balances`
+**Endpoint:** `GET warren_service/:_id/balances/:startingMonth/:endingMonth`
 
 **Requires Auth:** Yes.
 
@@ -269,22 +269,16 @@ Resulting user data after update (no password):
 
 **Params:** 
 
-User id from which to recover data.
+User id from which to recover data, starting and ending months of relevant period.
 
 ``
-_id: string
-``
-
-**Body:**
-
-Starting month and ending month of period from which to get the balances. Month string format is 'YYYY-MM'.
-
-```
-{
+  _id: string
   startingMonth: string
   endingMonth: string
-}
-```
+``
+
+
+**Body:** None.
 
 **Success return:**
 
@@ -304,7 +298,7 @@ Each index of the array has the following format:
 
 > Recovers a registered user's transfer (deposits & withdraws) amounts within a specified interval.
 
-**Endpoint:** `GET warren_service/:_id/transfers`
+**Endpoint:** `GET warren_service/:_id/transfers/:startingMonth/:endingMonth`
 
 **Requires Auth:** Yes.
 
@@ -312,22 +306,15 @@ Each index of the array has the following format:
 
 **Params:** 
 
-User id from which to recover data.
+User id from which to recover data, starting and ending months of relevant period.
 
 ``
-_id: string
-``
-
-**Body:**
-
-Starting month and ending month of period from which to get the transfer amounts. Month string format is 'YYYY-MM'.
-
-```
-{
+  _id: string
   startingMonth: string
   endingMonth: string
-}
-```
+``
+
+**Body:** None.
 
 **Success return:**
 
