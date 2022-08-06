@@ -2,7 +2,7 @@
 
 This is the accompanying microservice for the Warren Personal Finance Web Platform. It was made in TypeScript using a MongoDB database and deployed using Docker.
 
-It is a webservice with multiple endpoints used to store user data, user transactions, user transaction categories, user wallets and fetch specific user balance data for use in the Warren Web Platform.
+It is a web service with multiple endpoints used to store user data, user transactions, user transaction categories, user wallets and fetch specific user balance data for use in the Warren Web Platform.
 
 ## Route Documentation
 
