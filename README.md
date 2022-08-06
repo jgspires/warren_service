@@ -1,5 +1,8 @@
 # Warren Service
 
+This is the accompanying microservice for the Warren personal finance web platform. It was made in TypeScript using a MongoDB database and deployed using Docker.
+Further documentation to come at a later time.
+
 ## Routes
 
 ### **Log in User**:
