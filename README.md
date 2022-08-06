@@ -4,9 +4,7 @@ This is the accompanying microservice for the Warren Personal Finance Web Platfo
 
 It is a webservice with multiple endpoints used to store user data, user transactions, user transaction categories, user wallets and fetch specific user balance data for use in the Warren Web Platform.
 
-# Route documentation
-
-## Routes
+## Route Documentation
 
 ### **Log in User**:
 
