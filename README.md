@@ -1,7 +1,10 @@
 # Warren Service
 
-This is the accompanying microservice for the Warren personal finance web platform. It was made in TypeScript using a MongoDB database and deployed using Docker.
-Further documentation to come at a later time.
+This is the accompanying microservice for the Warren Personal Finance Web Platform. It was made in TypeScript using a MongoDB database and deployed using Docker.
+
+It is a webservice with multiple endpoints used to store user data, user transactions, user transaction categories, user wallets and fetch specific user balance data for use in the Warren Web Platform.
+
+# Route documentation
 
 ## Routes
 
@@ -329,3 +332,12 @@ The total amount of money that was deposited and withdrawn from the user's accou
   withdraws: number
 }
 ```
+
+## Authors
+
+* [**João Gabriel Setubal Pires**](https://github.com/jgspires)
+* [**Marcela Braga Bahia**](https://github.com/mrssolarisdev)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
